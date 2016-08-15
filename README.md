@@ -38,7 +38,7 @@ Look for suitable documentation here: https://docs.docker.com/engine/installatio
 ## Install
 Get the docker container:
 ```
-docker pull eluhu/jupyter-julia
+docker pull eluhu/thesis-nb
 ```
 It contains all the software packages, code and data needed to run simulations interactively.
 
@@ -46,7 +46,7 @@ It contains all the software packages, code and data needed to run simulations i
 Once it is downloaded, run it using:
 
 ```
-docker run -d --name thesis -p 8888:8888 eluhu/jupyter-julia jupyter notebook
+docker run -d --name thesis -p 8888:8888 eluhu/thesis-nb jupyter notebook
 ```
 
 This command will start up an interactive notebook in the background. It will have the name thesis.
@@ -72,4 +72,14 @@ To stop the container named `thesis` type:
 docker stop thesis
 ```
 
-You can use `docker ps -a` to make sure that the `STATUS` of `thesis` has changed to `Exited (0) 1 seconds ago`
+You can use `docker ps -a` to make sure that the `STATUS` of `thesis` has changed to `Exited`
+
+## Troubleshooting
+
+If the container is running, and you want to check something within the system, you can enter a bash-shell within the running container like so:
+
+```
+docker exec -it thesis /bin/bash
+```
+
+Type `exit` to leave quit the session.

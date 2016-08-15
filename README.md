@@ -7,7 +7,7 @@ The code I developed has numerous dependencies, such as the programming language
 It can be a hassle to install these on different systems, as dependencies can clash, or crucial dependencies can be omitted from the documentation.
 
 To circumvent this problem, I set up a `docker` container. Docker containers can be thought of as portable self-contained computing environments. They work like slimmed-down virtual operating systems, that can be run like a program on your computer. That way, none of the packages required to replicate my simulations will touch your operating system, but things will work smoothly, as everything my software needs is installed within the container.
-If you are interested in having a look at the inside of this custom docker container, go to: http://github.com/el-uhu/xyz. There you will find a so-called `Dockerfile`. Much like a recipe, this contains the instructions on how your computer builds the container in a step by step manner.
+If you are interested in having a look at the inside of this custom docker container, have a look at [this file](https://github.com/el-uhu/docker-containers/blob/master/thesis-nbs/Dockerfile). This is a so-called `Dockerfile`. Much like a recipe, this contains the instructions on how your computer builds the container in a step by step manner.
 These steps include cloning of this repository. Therefore, these instructions, as well as the interactive notebooks will be immediately available to you, when you run the container.
 
 If you want to check out the notebooks and don't need them to be fully interactive, just navigate to the subfolders and click on the files, and you will see a preview.

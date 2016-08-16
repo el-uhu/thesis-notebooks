@@ -46,7 +46,7 @@ It contains all the software packages, code and data needed to run simulations i
 Once it is downloaded, run it using:
 
 ```
-docker run -d --name thesis -p 8888:8888 eluhu/thesis-nb jupyter notebook
+docker run -d --name thesis -p 8888:8888 eluhu/thesis-nb
 ```
 
 This command will start up an interactive notebook in the background. It will have the name thesis.
@@ -65,6 +65,9 @@ Importantly, `STATUS` should show `Up`, and `PORTS` should display  `0.0.0.0:888
 
 To use the notebooks, open http://localhost:8888 in a browser.
 You will see folders, corresponding to the chapters of my thesis on results of my research.
+
+This repository contains a startup-script
+
 
 ## Stop
 To stop the container named `thesis` type:

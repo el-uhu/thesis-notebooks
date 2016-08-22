@@ -1,5 +1,5 @@
-source:         /home/nbuser/thesis-notebooks/Chapter5/data/bigtable/table.txt
-sink:           /home/nbuser/thesis-notebooks/Chapter5/data/
+source:         /home/nbuser/thesis-notebooks/Chapter6/data/bigtable/table.txt
+sink:           /home/nbuser/thesis-notebooks/Chapter6/data/
 headerpattern:  _MS\d\d\d\d_\d\d
 sampletypes:
   Supernatant: S_MS\d\d\d\d_\d\d

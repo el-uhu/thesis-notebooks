@@ -134,9 +134,9 @@ function simulate_ensa_prc1(model::PPSIM.Model, k_ass::Float64, k_diss::Float64,
     simulate!(model.M, "$condition", collect(0:0.1:46))
     if plot == true
       sp1[:scatter](x_e, y_e, color = specs.colors[condition])
-      plotModel(model.M, "$condition", vars = ["pEt"], colors = ["pEt" => specs.colors[condition]], fig = false, sp = sp1)
+            plotModel(model.M, "$condition", vars = ["pEt"], colors = Dict("pEt" => specs.colors[condition]), fig = false, sp = sp1)
       sp2[:scatter](x_s, y_s, color = specs.colors[condition])
-      plotModel(model.M, "$condition", vars = ["pS"], colors = ["pS" => specs.colors[condition]], fig = false, sp = sp2)
+            plotModel(model.M, "$condition", vars = ["pS"], colors = Dict("pS" => specs.colors[condition]), fig = false, sp = sp2)
     end
 
     #Get simulation data for timepoints specified by x

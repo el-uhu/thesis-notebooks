@@ -55,9 +55,9 @@ pars = Dict(
   "kdcycb" => 0.002,
   "kscycb" => 0.005,
   "kdcycb_c" => 1.5,
-  "kdsec" => 0.001,
+  "kdsec" => 0.002,
   "kssec" => 0.0025,
-  "kdsec_c" => 2.5,
+  "kdsec_c" => 0.75,
   "r_decay" => 0.0008,
   "r_decays" => 0.0016,
   "kdiss" => 0.2,
@@ -81,7 +81,7 @@ inits = Dict(
 "Inhe" => 0.0,
 "APC" => 0.0,
 "CycB" => 1.0,
-"Sec" => 1,
+"Sec" => 1.0,
 "MCCt" => 2.2,
 "uKTa" => 1.0,
 "uKTt" => 1.0,
@@ -107,10 +107,6 @@ conditions = Dict(
 "Nocodazole + 3.0 uM RO3306" => ConditionDef(rro[3.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro3"]), 150.0),
 "Nocodazole + 10.0 uM RO3306" => ConditionDef(rro[10.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro10"]),
  150.0),
-"2.5 uM not normalised" => ConditionDef(rro[2.5], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro2_5"]), 600.0),
-"3.0 uM not normalised" => ConditionDef(rro[3.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro3"]), 150.0),
-"10.0 uM not normalised" => ConditionDef(rro[10.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro10"]),
-50.0),
 "Nocodazole + 2.5 uM RO3306*" => ConditionDef(hro[2.5], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro2_5"]), 150.0),
 "Nocodazole + 3.0 uM RO3306*" => ConditionDef(hro[3.3], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro3"]), 150.0),
 "Nocodazole + 10.0 uM RO3306*" => ConditionDef(hro[13.3], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro10"]),
@@ -118,6 +114,6 @@ conditions = Dict(
 )
 
 M = model_ctrl_noc(M, conditions, D, "modelplots", "RPE1")
-# M = model_inhibition_cycb(M, conditions, D, "modelplots")
-# M = model_inhibition_sec(M, conditions, D, "modelplots")
+M = model_inhibition_cycb(M, conditions, D, "modelplots")
+M = model_inhibition_sec(M, conditions, D, "modelplots")
 # main_data_figure(conditions, D, "RPE1.pdf")

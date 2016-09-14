@@ -99,7 +99,7 @@ function model_after(M, pars, ics, time_after, title; normalise = false, t0 = "b
 end
 
 # Function to model an experiment as specified by a ConditionDef-object
-function model_condition(D::DataFrames.DataFrame, M::XPP.Model, c::ConditionDef, name, p; uKT = 1.0, plot_data = true)
+function model_condition(D::DataFrames.DataFrame, M::XPP.Model, c::ConditionDef, name; p = false, uKT = 1.0, plot_data = true)
   restoreModel!(M)
   #Plot data
   if plot_data
@@ -122,7 +122,10 @@ function model_condition(D::DataFrames.DataFrame, M::XPP.Model, c::ConditionDef,
   M.spec["total"] = c.time
   #Simulate
   simulate!(M, name, collect(0:0.01:c.time))
-  # Plot simulation
-  S = Dict("CycB" => "k", "Sec" => "#75008c", "MCCt" => "#ff6600", "APC" => "#008000", "uKTa" => "#aa0000");
-  plotsim(M, p[name], name, S, [0, c.time], label = "varname", title =  name, ylim = [0,2.2], ylabel = "a.u.")
+
+  if p != false
+    # Plot simulation
+    S = Dict("CycB" => "k", "Sec" => "#75008c", "MCCt" => "#ff6600", "APC" => "#008000", "uKTa" => "#aa0000");
+    plotsim(M, p[name], name, S, [0, c.time], label = "varname", title =  name, ylim = [0,2.2], ylabel = "a.u.")
+  end
 end

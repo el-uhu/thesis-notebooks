@@ -1,21 +1,12 @@
-#2016-09-13_00_RPE1_modelplots_modelplots
-#generated using XPPjl
-
 #ODEs:
-uKTt'=Noc * (1-uKTt) - katt*uKTt
-Inhe'=a * (Inh - Inhe)
+CycB'=kscycb - (kdcycb + kdcycb_c*APC)*CycB
 APC'=(kdiss + kimcc + kimcc_p31 * 1/(Jimcc^N + Cdk1^N))*APCMCC - (kass + kass_cdk*Cdk1)*APC*MCCfree
-CycB'=synth - (kdcycb + kdcycb_c*APC)*CycB
 uKTa'=ka*Cdk1*(uKTt - uKTa) - ki *  uKTa
 MCCt'=kamcc*M2 * uKTa  - (kimcc + kimcc_p31 * 1/(Jimcc^N + Cdk1^N))*MCCfree - (kimcc + kimcc_p31 * 1/(Jimcc^N + Cdk1^N)) * APCMCC
-Noc'=knoc * (Nocmax - Noc) - knoci * Noc
-Sec'=synths - (kdsec + kdsec_c*APC)*Sec
 
 
 #Algebraic and auxilliary equations:
 M2=MCCtot-MCCt
-synths=kssec * exp(-r_decays * t)
-synth=kscycb * exp(-r_decay * t)
 Cdk1=CycB/(1 + Inhe)
 MCCfree=MCCt-APCMCC
 APCMCC=1-APC
@@ -23,10 +14,8 @@ aux M2loc=uKTa
 
 
 #Parameters:
-p Inh=0.0
-p Inh_ro075=0.35
-p Inh_ro150=1.55
-p Inh_ro800=6.5
+p uKTt=1
+p Inhe=0
 p Jimcc=0.09
 p MCCtot=2.4
 p N=2.6
@@ -41,8 +30,8 @@ p katt_ctrl=0.6
 p kdcycb=0.002
 p kdcycb_c=1.5
 p kdiss=0.2
-p kdsec=0.002
-p kdsec_c=0.75
+p kdsec=0.001
+p kdsec_c=2.5
 p ki=40
 p kimcc=0.1
 p kimcc_p31=0.08
@@ -51,23 +40,35 @@ p knoc_acute=0.5
 p knoci=0
 p kscycb=0.005
 p kssec=0.0025
-p r_decay=0.0008
-p r_decays=0.0016
+
 
 
 #Initials:
-init uKTt=1.0
-init Inhe=0.0
-init APC=0.0
-init CycB=1.0
-init uKTa=1.0
-init MCCt=2.2
-init Noc=0.0
-init Sec=1.0
+init APC=0.0004986593429172312
+init CycB=2
+init uKTa=0.5385040943263802
+init MCCt=2.3931783744213586
+
 
 
 #Settings:
 @ meth=stiff
-@ total=2000.0
+@ total=3000
 @ maxstor=2000000000
+
+#AUTO
+@ EPSL=1e-7,
+@ EPSS=1e-7,
+@ EPSU=1e-7,
+@ NMAX=10000000000,
+@ NPR=100000,
+@ DSMIN=0.0001
+@ DS=-0.01,
+@ DSMAX=1,
+@ PARMIN=0,
+@ PARMAX=10000,
+@ AUTOXMIN=0,
+@ AUTOXMAX=2,
+@ AUTOYMIN=0,
+@ AUTOYMAX=2.25,
 done

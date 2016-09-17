@@ -21,6 +21,15 @@ hro = Dict([d => [id for id in HR[HR[:dose_uM] .== d,:][:cell_id]] for d in uniq
 rro = Dict([d => [id for id in RR[RR[:dose_uM] .== d,:][:cell_id]] for d in unique(RR[:dose_uM])])
 hro[0.0] = [id for id in HN[:cell_id]]
 rro[0.0] = [id for id in RN[:cell_id]]
+
+a = []
+for i in rro[0.75]
+  if !(contains(i, "x") || contains(i, "!"))
+    a = [a;i]
+  end
+end
+rro[0.75] = a
+
 rctrl = [id for id in R[R[:treatment] .== "untreated", :cell_id]]
 
 #Specify model
@@ -47,7 +56,8 @@ alg = Dict(
 );
 pars = Dict(
   "Inh" => 0.0,
-  "Inh_ro2_5" => 0.5,
+  "Inh_ro0_75" => 0.4,
+  "Inh_ro2_5" => 0.75,
   "Inh_ro3" => 2.2,
   "Inh_ro10" => 5,
   "katt" => 0.0,
@@ -115,9 +125,12 @@ conditions = Dict(
 "Nocodazole + 3.0 uM RO3306*" => ConditionDef(hro[3.3], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro3"]), 150.0),
 "Nocodazole + 10.0 uM RO3306*" => ConditionDef(hro[13.3], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro10"]),
 150.0),
+"Nocodazole + 0.75 uM RO3306" => ConditionDef(rro[0.75], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro0_75"]), 2000),
+"0.75 uM not normalised" => ConditionDef(rro[0.75], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro0_75"]), 2000),
 )
 
-M = model_ctrl_noc(M, conditions, D, "modelplots", "RPE1")
+# M = model_ctrl_noc(M, conditions, D, "modelplots", "RPE1")
 # M = model_inhibition_cycb(M, conditions, D, "modelplots")
 # M = model_inhibition_sec(M, conditions, D, "modelplots")
+M = model_prediction(M, conditions, D, "modelplots")
 # main_data_figure(conditions, D, "RPE1.pdf")

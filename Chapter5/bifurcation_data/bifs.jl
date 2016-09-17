@@ -70,23 +70,21 @@ colors = Dict(
 "kscycb0003" => "#2F828A",
 "kscycb000255" => "#30A09B"
 )
-fig = figure()
-sp = subplot(111)
+
+fig = figure(figsize = [12,6])
+sp = subplot(121)
 for (n, c) in colors
   path = "uKT-CycB_" * n * ".dat"
   plot_bifurcation(path; xlim = [0,1], ylim = [0,2.25], xf = do_nothing, yf = do_nothing, xscale = "log", sp = sp, color = c)
 end
-savefig("uKT-CycB.eps")
-close()
 
-fig = figure()
-sp = subplot(111)
+sp = subplot(122)
 for (n, c) in colors
   path = "uKT-CycB_" * n * ".dat"
   plot_bifurcation(path; xlim = [0,1], ylim = [0,2.25], xf = do_nothing, yf = do_nothing, xscale = "linear", sp = sp, color = c)
 end
-savefig("uKT-CycB_lin.eps")
-close()
+# savefig("uKT-CycB.eps")
+# close()
 
 fig = figure()
 sp = subplot(111)
@@ -94,17 +92,14 @@ for (n, c) in colors
   path = "Inh-CycB_" * n * ".dat"
   plot_bifurcation(path; xlim = [0,100], ylim = [0,2.25], xf = convert_inh_to_activity, yf = do_nothing, xscale = "linear", sp = sp, color = c, xlabel = "maximal Cdk1-activity after inhibition (%)")
 end
-savefig("Inh-CycB.eps")
-close()
+# savefig("Inh-CycB.eps")
+# close()
 
-fig = figure()
-sp = subplot(111)
+fig = figure(figsize = [12,6])
+sp = subplot(121)
 plot_bifurcation("kscycb-CycB_upperbranch.dat"; xlim = [0,0.005], ylim = [0,2.25], xf = do_nothing, yf = do_nothing, xscale = "linear", sp = sp, color = "#1D1A26")
-savefig("kscycb-CycB.eps")
-close()
 
-fig = figure()
-sp = subplot(111)
+sp = subplot( 122)
 plot_bifurcation("kscycb-CycB_upperbranch.dat"; xlim = [0,2000], ylim = [0,2.25], xf = convert_synth_to_time, yf = do_nothing, xscale = "linear", sp = sp, color = "#1D1A26", xlabel = "time (min)")
-savefig("time-CycB.eps")
-close()
+# savefig("time-CycB.eps")
+# close()

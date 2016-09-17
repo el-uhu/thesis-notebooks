@@ -18,7 +18,7 @@ function model_inhibition(D::DataFrames.DataFrame, M::XPP.Model, c::ConditionDef
   870 => "#30A09B"
   )
   plotsim(M, p[name], name, Dict(plotwhat => colors[time_in_noc]), [xmin, c.time], label = "$time_in_noc  min", title = name, leg_title = "Time in noc", ylim = [0,2.5])
-  plotsim(M, p[name], "_before", Dict(plotwhat => colors[time_in_noc]), [xmin, c.time], title = name, linestyle = "--", leg_title = "Time in noc", ylim = [0,1.5])
+  plotsim(M, p[name], "_before", Dict(plotwhat => colors[time_in_noc]), [xmin, c.time], title = name, linestyle = "--", leg_title = "Time in noc", ylim = [0,2.2])
   y = collect(0:0.1:2.5)
   x = zeros(length(y))
   p[name][:plot](x,y, color = "#adadad", linewidth = 0.5)
@@ -108,15 +108,15 @@ function model_inhibition_sec(M::XPP.Model, conditions::Dict, D::DataFrame, titl
   # model_condition(D, M, conditions["Nocodazole"], "Nocodazole", sp)
   println(M.originalState[:init])
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO3306*",], "Nocodazole + 2.5 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO3306*",], "Nocodazole + 2.5 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO3306*"], "Nocodazole + 3.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO3306*"], "Nocodazole + 3.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO3306*"], "Nocodazole + 13.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO3306*"], "Nocodazole + 13.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
   for t in [1,130,280,445,640,870]
     model_inhibition(D, M, conditions["2.5 uM not normalised"], "2.5 uM not normalised", sp, t, plotdata = false, xmin = -600, plotwhat = "Sec", normalise = false)
@@ -129,6 +129,36 @@ function model_inhibition_sec(M::XPP.Model, conditions::Dict, D::DataFrame, titl
   for t in [1,130,280,445,640,870]
     model_inhibition(D, M, conditions["10.0 uM not normalised"], "13.3 uM not normalised", sp, t, plotdata = false, xmin = -50, plotwhat = "Sec", normalise = false)
   end
+  subplots_adjust(left = 0.08, right = 0.95, top = 0.90, bottom = 0.15, hspace = 0.4, wspace = 0.4)
+  return(M)
+end
+
+function model_prediction(M::XPP.Model, conditions::Dict, D::DataFrame, title::AbstractString)
+  model_condition(D, M, conditions["Control"], "Control", plot_data = false)
+  println(M.originalState[:init])
+  sp = Dict()
+  figure(figsize = (9,12))
+  simulations = [
+    "0.75 uM not normalised",
+    "Nocodazole",
+    "Nocodazole + 0.75 uM RO3306",
+    ]
+  for (i,v) in enumerate(simulations)
+    sp[v] = subplot(3,1,i)
+  end
+  model_before(M, M.sims["Control"].P, M.sims["Control"].I, 40)
+  # model_condition(D, M, conditions["Nocodazole"], "Nocodazole", sp)
+  println(M.originalState[:init])
+  for t in [1,130,280,445,640,870]
+    model_inhibition(D, M, conditions["Nocodazole + 0.75 uM RO3306",], "Nocodazole + 0.75 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
+  end
+
+  model_condition(D, M, conditions["Nocodazole"], "Nocodazole", p = sp)
+
+  for t in [1,130,280,445,640,870]
+    model_inhibition(D, M, conditions["0.75 uM not normalised"], "0.75 uM not normalised", sp, t, plotdata = false, xmin = -600, plotwhat = "CycB", normalise = false)
+  end
+
   subplots_adjust(left = 0.08, right = 0.95, top = 0.90, bottom = 0.15, hspace = 0.4, wspace = 0.4)
   return(M)
 end

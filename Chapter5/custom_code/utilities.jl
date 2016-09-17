@@ -1,7 +1,7 @@
 using XPP
 using PyCall
-PyDict(pyimport("matplotlib")["rcParams"])["font.family"] = ["Raleway"]
-PyDict(pyimport("matplotlib")["rcParams"])["font.size"] = 18.0
+# PyDict(pyimport("matplotlib")["rcParams"])["font.family"] = ["Raleway"]
+# PyDict(pyimport("matplotlib")["rcParams"])["font.size"] = 18.0
 using PyPlot
 using DataFrames
 using IDAT

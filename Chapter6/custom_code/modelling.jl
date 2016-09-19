@@ -175,7 +175,7 @@ function fit_routine_ensa(PRC1, model, ensa_data)
   g = DifferentiableFunction(f)
 
   #Run box-minimization algorithm according to specifications above
-  r = fminbox(g, initial_guess, lower_bound,  upper_bound, show_trace = true)
+    r = optimize(g, initial_guess, lower_bound,  upper_bound, Fminbox(), show_trace = true)
 
   #Print results
   println(r.minimum)
@@ -253,7 +253,7 @@ function fit_routine_substrate(D, model, depletion_efficiency, b_total, ensa_dat
     substrate_data = [c => get_data(D, s, c, scale = true) for c in specs.conditions]
     f(p) = simulate_substrate(p, substrate_data, b55_sim, t_sim)
     g = DifferentiableFunction(f)
-    r = fminbox(g, [0.0001, 0.0001], [1e-5,1e-5],  [0.3, 0.3], ftol = 1e-5)
+    r = optimize(g, [0.0001, 0.0001], [1e-5,1e-5],  [0.3, 0.3], Fminbox(), ftol = 1e-5)
     k_ds = round(r.minimum[1],4)
     k_bg = round(r.minimum[2],4)
     o = round(r.f_minimum,4)

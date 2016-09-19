@@ -128,6 +128,5 @@ function clean(sourcefile, sinkfile, seqfile, ontology, logfile = "cleaning_data
   f = open(joinpath(specs.sink, logfile), "w")
   write(f, JSON.json(cleaning_log))
   close(f)
-  println(cleaning_log)
-
+  return(cleaning_log)
 end

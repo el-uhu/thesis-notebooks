@@ -111,8 +111,6 @@ checkpoint!(M)
 conditions = Dict(
 "Control" => ConditionDef(rctrl, Dict("katt" =>pars["katt_ctrl"]), 30),
 "Nocodazole" => ConditionDef(rro[0.0], Dict("katt" => pars["katt"]), 2000.0),
-# "AcuteNoc" => ConditionDef(cells_used["Fig2c"], Dict("katt" =>pars["katt_ctrl"]), 25),
-# "Sensitivity" => ConditionDef(cells_used["Fig2c"], Dict("katt" =>pars["katt"]), 25),
 "Nocodazole + 2.5 uM RO3306" => ConditionDef(rro[2.5], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro2_5"]), 150.0),
 "Nocodazole + 3.0 uM RO3306" => ConditionDef(rro[3.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro3"]), 150.0),
 "Nocodazole + 10.0 uM RO3306" => ConditionDef(rro[10.0], Dict("katt" => pars["katt"], "Inh" => pars["Inh_ro10"]),

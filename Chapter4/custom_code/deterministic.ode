@@ -1,0 +1,45 @@
+APC'=(kdiss + kimcc)*(1 - APC) - kass*APC*MCCfree
+uKT'=kerr*AurBa/(1 + BN2)*(KTtot - uKT) - katt*uKT
+MCCfree'=kamcc_Cdk*AurBa/(1 + BN2)/(Jamcc + AurBa/(1 + BN2))*Cdk1*uKT*(MCCtot - MCCfree - (1- APC))  + kdiss*(1 - APC) - kass*APC*MCCfree - kimcc*MCCfree
+CycB'=kscycb - (kdcycb + kdcycb_c*APC)*CycB
+AurBc'=(kloc + kloc_cdk*Cdk1)*(AurBtot - AurBc) - krem*AurBc
+
+AurBa=AurBc - Stretch*AurBc*(KTtot - uKT)^N/(J^N + (KTtot - uKT)^N)
+Cdk1=CycB/(1 + RO)
+
+aux CycBrate=-(kscycb - (kdcycb + kdcycb_c*APC)*CycB)
+aux AurBa=AurBc - Stretch*AurBc*(KTtot - uKT)^N/(J^N + (KTtot - uKT)^N)
+
+init APC=0.015
+init uKT=1
+init MCCfree=0.16
+init CycB=1
+init AurBc=1
+
+p kass=200
+p kdiss=0.01
+p BN2=0.0
+p RO=0.0
+p kerr=0.66
+p katt=0.5
+p KTtot=1
+p N=4
+p J=0.4
+p Jamcc=0.1
+p kamcc_cdk=15
+p kimcc=0.5
+p MCCtot=1.2
+p kscycb=0.004
+p kdcycb=0.004
+p kdcycb_c=0.5
+p kloc=0
+p kloc_cdk=5
+p krem=2.5
+p Stretch=1
+p AurBtot=1.5
+
+@ total=400
+@ maxstor=10000000
+@ meth=stiff
+
+done

@@ -1,0 +1,162 @@
+################################################################################
+#                                                                              #
+#       FULL STOCHASTIC MODEL FOR MIRKOVIC ET AL. 2015                         #
+#                                                                              #
+################################################################################
+
+################################################################################
+#                                                                              #
+#       VARIABLES                                                              #
+#                                                                              #
+################################################################################
+
+# time for next reaction
+tr'=tr-log(ran(1))/p14
+uKT'=max(0,uKT+z1-z2)
+APC'=max(1,APC+z3-z4)
+MCCfree'=max(1,MCCfree+z5-z6)
+CycB'=max(1,CycB+z7-z8)
+AurBc'=max(0,AurBc+z9-z10)
+uKTla'=max(0,uKTla+z11-z12)
+AurBcla'=max(0,AurBcla+z13-z14)
+
+################################################################################
+#                                                                              #
+#       REACTION RATES                                                         #
+#                                                                              #
+################################################################################
+
+# formation of unattached MT binding sites at the kinetochore of a single chromosome/sister-chromatid
+V1 = kerr*AurBa/(1 + BN2)*(KTtot*Vx - uKT)/Vx
+# formation of unattached MT binding sites at the kinetochore of a single chromosome/sister-chromatid
+V2 = katt*uKT
+
+# APC/C activation
+V3 = (kdiss + kimcc)*(APCtot*VT - APC)
+# APC/C inactivation
+V4 = kass*APC*MCCfree/VT
+
+# MCC production
+V5 = (kamcc + kamcc_cdk/VT*Cdk1*AurBatot/(1 + BN2)/(Jamcc + AurBatot/(1 + BN2)))*(uKT + uKTla)*(MCCtot*VT - MCCfree - (APCtot*VT - APC))/VT + kdiss*(APCtot*VT - APC)
+# MCC inactivation
+V6 = kimcc*MCCfree + kass*APC*MCCfree/VT
+
+# CycB synthesis
+V7 = kscycb*VT
+# CycB degradation
+V8 = (kdcycb + kdcycb_c*APC/VT)*CycB
+
+# Aurora-B association with the centromere of a single chromsome/sister-chromatids
+V9 = (kloc + kloc_cdk/VT*Cdk1)*(AurBtot*VT - AurBc - AurBcla)*Vx/VT
+# Aurora-B dissociation form centromere of a single chromosome/sister-chromatids
+V10 = krem*AurBc
+
+# formation of unattached kinetochores of bulk chromosomes/sister-chromatids
+V11 = kerr*AurBala/(1 + BN2)*(KTtot*Vbulk - uKTla)/Vbulk
+# formation of attached kinetochores of bulk chromosomes/sister-chromatids
+V12 = katt*uKTla
+
+# Aurora-B association with the centromere of bulk chromsome/sister-chromatids
+V13 = (kloc + kloc_cdk/VT*Cdk1)*(AurBtot*VT - AurBcla - AurBc)*Vbulk/VT
+# Aurora-B dissociation form centromere of bulk chromosome/sister-chromatids
+V14 = krem*AurBcla
+
+################################################################################
+#                                                                              #
+#       CUMULATIVE PROBABILITIES                                               #
+#                                                                              #
+################################################################################
+
+p1 = V1
+p[2..14] = p[j-1] + V[j]
+
+################################################################################
+#                                                                              #
+#       CHOOSE REACTION                                                        #
+#                                                                              #
+################################################################################
+
+s2 = ran(1)*p14
+z1 = (s2<p1)
+z[2..13]=(s2<p[j])&(s2>=p[j-1])
+z14 = (s2>p13)
+
+################################################################################
+#                                                                              #
+#       ALGEBRAIC EQUATIONS AND AUXILLIARY VARIABLES                           #
+#                                                                              #
+################################################################################
+
+AurBa=flr(AurBc*(1 - Stretch*(KTtot*Vx - uKT)^N/((J*KTtot*Vx)^N + (KTtot*Vx - uKT)^N)))
+AurBala=flr(AurBcla*(1 - Stretch*(KTtot*Vbulk - uKTla)^N/((J*KTtot*Vbulk)^N + (KTtot*Vbulk- uKTla)^N)))
+AurBatot=AurBa + AurBala
+Cdk1=CycB/(1 + RO)
+VT=Vx + Vbulk
+
+aux uKTtot=uKT + uKTla
+aux AurBa=AurBa
+aux AurBctot=AurBc + AurBcla
+aux AurBatot=AurBa + AurBala
+aux MCCformation = V5
+
+################################################################################
+#                                                                              #
+#       INITIAL CONDITIONS                                                     #
+#                                                                              #
+################################################################################
+
+init tr=0
+init uKT=11
+init APC=117
+init MCCfree=2128
+init CycB=10052
+init AurBc=62
+init uKTla=165
+init AurBcla=938
+
+################################################################################
+#                                                                              #
+#       PARAMETERS                                                             #
+#                                                                              #
+################################################################################
+
+p Vx=625
+p Vbulk=9375
+
+p kass=200
+p kdiss=0.01
+p BN2=0
+p RO=0
+p kerr=6.66
+p katt=0.5
+p KTtot=0.0176
+p N=4
+p J=0.4
+p Jamcc=50
+p kamcc=0
+p kamcc_cdk=750
+p kimcc=0.5
+p MCCtot=1.2
+p kscycb=0.004
+p kdcycb=0.004
+p kdcycb_c=0.5
+p kloc=0
+p kloc_cdk=5
+p krem=2.5
+p Stretch=1
+p APCtot=1
+p AurBtot=0.15
+
+################################################################################
+#                                                                              #
+#       NUMERICAL SETTINGS                                                     #
+#                                                                              #
+################################################################################
+
+@ bound=100000000
+@ meth=discrete
+@ total=2000000
+@ njmp=1000
+@ maxstorage=100000000
+@ seed=189284124
+done

@@ -16,15 +16,6 @@ styles = Dict(
     "uKTtot" => "#440091",
 )
 
-fonts = Dict(
-    "subplt_title" => Dict("family" => "Arial", "weight" => "bold", "size" => "20"),
-    "subplt_axis" => Dict("family" => "Arial", "weight" => "bold", "size" => "17"),
-    "base" => Dict("family" => "Arial", "size" => 17),
-)
-
-using PyCall
-PyDict(pyimport("matplotlib")["rcParams"])["font.family"] = [fonts["base"]["family"]]
-PyDict(pyimport("matplotlib")["rcParams"])["font.size"] = [fonts["base"]["size"]]
 
 global cyc_max =11000
 global mcc_max = 2200

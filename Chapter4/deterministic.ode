@@ -1,6 +1,6 @@
 APC'=(kdiss + kimcc)*(1 - APC) - kass*APC*MCCfree
 uKT'=kerr*AurBa/(1 + BN2)*(KTtot - uKT) - katt*uKT
-MCCfree'=kamcc_Cdk*AurBa/(1 + BN2)/(Jamcc + AurBa/(1 + BN2))*Cdk1*uKT*(MCCtot - MCCfree - (1- APC))  + kdiss*(1 - APC) - kass*APC*MCCfree - kimcc*MCCfree
+MCCfree'=kamcc_cdk*AurBa/(1 + BN2)/(Jamcc + AurBa/(1 + BN2))*Cdk1*uKT*(MCCtot - MCCfree - (1- APC))  + kdiss*(1 - APC) - kass*APC*MCCfree - kimcc*MCCfree
 CycB'=kscycb - (kdcycb + kdcycb_c*APC)*CycB
 AurBc'=(kloc + kloc_cdk*Cdk1)*(AurBtot - AurBc) - krem*AurBc
 

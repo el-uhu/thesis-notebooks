@@ -49,11 +49,11 @@ function model_inhibition_cycb(M::XPP.Model, conditions::Dict, D::DataFrame, tit
   sp = Dict()
   figure(figsize = (12,16))
   simulations = [
-    "Nocodazole + 2.5 uM RO3306",
+    "Nocodazole + 2.5 uM RO-3306",
     "2.5 uM not normalised",
-    "Nocodazole + 3.0 uM RO3306",
+    "Nocodazole + 3.0 uM RO-3306",
     "3.0 uM not normalised",
-    "Nocodazole + 10.0 uM RO3306",
+    "Nocodazole + 10.0 uM RO-3306",
     "10.0 uM not normalised"
     ]
   for (i,v) in enumerate(simulations)
@@ -63,15 +63,15 @@ function model_inhibition_cycb(M::XPP.Model, conditions::Dict, D::DataFrame, tit
   # model_condition(D, M, conditions["Nocodazole"], "Nocodazole", sp)
   println(M.originalState[:init])
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO3306",], "Nocodazole + 2.5 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
+    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO-3306",], "Nocodazole + 2.5 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO3306"], "Nocodazole + 3.0 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
+    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO-3306"], "Nocodazole + 3.0 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO3306"], "Nocodazole + 10.0 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
+    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO-3306"], "Nocodazole + 10.0 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
   end
 
   for t in [1,130,280,445,640,870]
@@ -94,11 +94,11 @@ function model_inhibition_sec(M::XPP.Model, conditions::Dict, D::DataFrame, titl
   sp = Dict()
   figure(figsize = (12,16))
   simulations = [
-    "Nocodazole + 2.5 uM RO3306",
+    "Nocodazole + 2.5 uM RO-3306",
     "2.5 uM not normalised",
-    "Nocodazole + 3.3 uM RO3306",
+    "Nocodazole + 3.3 uM RO-3306",
     "3.3 uM not normalised",
-    "Nocodazole + 13.3 uM RO3306",
+    "Nocodazole + 13.3 uM RO-3306",
     "13.3 uM not normalised"
     ]
   for (i,v) in enumerate(simulations)
@@ -108,15 +108,15 @@ function model_inhibition_sec(M::XPP.Model, conditions::Dict, D::DataFrame, titl
   # model_condition(D, M, conditions["Nocodazole"], "Nocodazole", sp)
   println(M.originalState[:init])
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO3306*",], "Nocodazole + 2.5 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 2.5 uM RO-3306*",], "Nocodazole + 2.5 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO3306*"], "Nocodazole + 3.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 3.0 uM RO-3306*"], "Nocodazole + 3.3 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
 
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO3306*"], "Nocodazole + 13.3 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
+    model_inhibition(D, M, conditions["Nocodazole + 10.0 uM RO-3306*"], "Nocodazole + 13.3 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "Sec", normalise = "Sec")
   end
   for t in [1,130,280,445,640,870]
     model_inhibition(D, M, conditions["2.5 uM not normalised"], "2.5 uM not normalised", sp, t, plotdata = false, xmin = -600, plotwhat = "Sec", normalise = false)
@@ -141,7 +141,7 @@ function model_prediction(M::XPP.Model, conditions::Dict, D::DataFrame, title::A
   simulations = [
     "0.75 uM not normalised",
     "Nocodazole",
-    "Nocodazole + 0.75 uM RO3306",
+    "Nocodazole + 0.75 uM RO-3306",
     ]
   for (i,v) in enumerate(simulations)
     sp[v] = subplot(3,1,i)
@@ -150,7 +150,7 @@ function model_prediction(M::XPP.Model, conditions::Dict, D::DataFrame, title::A
   # model_condition(D, M, conditions["Nocodazole"], "Nocodazole", sp)
   println(M.originalState[:init])
   for t in [1,130,280,445,640,870]
-    model_inhibition(D, M, conditions["Nocodazole + 0.75 uM RO3306",], "Nocodazole + 0.75 uM RO3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
+    model_inhibition(D, M, conditions["Nocodazole + 0.75 uM RO-3306",], "Nocodazole + 0.75 uM RO-3306", sp, t, plotdata = t == 1, xmin = -10, plotwhat = "CycB", normalise = "CycB")
   end
 
   model_condition(D, M, conditions["Nocodazole"], "Nocodazole", p = sp)

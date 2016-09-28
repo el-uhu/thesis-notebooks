@@ -126,6 +126,6 @@ function model_condition(D::DataFrames.DataFrame, M::XPP.Model, c::ConditionDef,
   if p != false
     # Plot simulation
     S = Dict("CycB" => "k", "Sec" => "#75008c", "MCCt" => "#ff6600", "APC" => "#008000", "uKTa" => "#aa0000");
-    plotsim(M, p[name], name, S, [0, c.time], label = "varname", title =  name, ylim = [0,2.2], ylabel = "a.u.")
+    plotsim(M, p[name], name, S, [0, c.time], label = "varname", title =  name, ylim = [0,2.2], ylabel = "AU")
   end
 end
